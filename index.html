@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golden Style - Official Store</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-custom-dark border-bottom border-neon">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2 fw-bold text-uppercase fs-4" href="#">
+                <span class="text-neon"><i class="fa-solid fa-crown"></i> GOLDEN</span> STYLE
+            </a>
+            <!-- Logos de Marcas -->
+            <div class="d-none d-md-flex align-items-center gap-4">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" alt="Nike" class="brand-logo-img">
+                <img src="https://upload.wikimedia.org/wikipedia/en/3/37/Jumpman_logo.svg" alt="Jordan" class="brand-logo-img">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg" alt="Adidas" class="brand-logo-img">
+            </div>
+            <button class="btn btn-neon-outline position-relative" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas">
+                <i class="fa-solid fa-cart-shopping me-1"></i> Carrito
+                <span id="cartCount" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-neon">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Header / Banner -->
+    <header class="py-5 text-center bg-hero text-white position-relative overflow-hidden">
+        <div class="hero-brand-bg"></div>
+        <div class="container position-relative z-1 py-4">
+            <h1 class="display-3 fw-black text-uppercase text-neon glow-text mb-2">GOLDEN STYLE</h1>
+            <p class="lead text-light mb-0 fs-5 fw-bold">SNEAKERS, SPORTSWEAR & LUXURY WATCHES</p>
+        </div>
+    </header>
+
+    <!-- Catalog -->
+    <main class="container my-5">
+        <h2 class="h3 fw-bold text-light mb-4 pb-2 border-bottom border-secondary">
+            <i class="fa-solid fa-fire text-neon me-2"></i>Catálogo Exclusivo
+        </h2>
+        <div id="productContainer" class="row g-4"></div>
+    </main>
+
+    <!-- Detail Modal -->
+    <div class="modal fade" id="productModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-custom-card border-neon text-light">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title fw-bold text-neon" id="modalTitle">Detalle</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="img-modal-container mb-3 p-2 rounded bg-white" style="height: 250px; display: flex; align-items: center; justify-content: center;">
+                        <img id="modalImage" src="" alt="Producto" class="img-fluid" style="max-height: 100%; max-width: 100%; object-fit: contain;">
+                    </div>
+                    <p id="modalDescription" class="text-secondary mb-3"></p>
+                    <h3 id="modalPrice" class="text-neon fw-bold mb-3"></h3>
+                    <div class="mb-3 w-50 mx-auto">
+                        <label for="modalQuantity" class="form-label text-light">Cantidad:</label>
+                        <input type="number" id="modalQuantity" class="form-control bg-dark text-light border-neon text-center" value="1" min="1">
+                    </div>
+                </div>
+                <div class="modal-footer border-secondary">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" id="addToCartBtn" class="btn btn-neon">🛒 Añadir al Carrito</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Offcanvas Cart -->
+    <div class="offcanvas offcanvas-end bg-custom-dark text-light border-start border-neon" tabindex="-1" id="cartOffcanvas">
+        <div class="offcanvas-header border-bottom border-secondary">
+            <h5 class="offcanvas-title fw-bold text-neon"><i class="fa-solid fa-bag-shopping me-2"></i>Tu Carrito</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column justify-content-between">
+            <div id="cartItemsList" class="mb-3"></div>
+            <div class="border-top border-secondary pt-3">
+                <div class="d-flex justify-content-between mb-3 fs-5">
+                    <span class="fw-bold">Total:</span>
+                    <span id="cartTotal" class="fw-bold text-neon">$0.00</span>
+                </div>
+                <button class="btn btn-neon w-100 py-2 fw-bold" id="checkoutBtn" data-bs-toggle="modal" data-bs-target="#paymentModal">
+                    💳 Proceder al Pago
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="modal fade" id="paymentModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-custom-card border-neon text-light">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title fw-bold text-neon"><i class="fa-solid fa-credit-card me-2"></i>Pago Seguro</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="paymentForm">
+                        <div class="mb-3">
+                            <label class="form-label">Nombre del Titular</label>
+                            <input type="text" class="form-control bg-dark text-light border-secondary" id="clientName" required placeholder="Tu Nombre Completo">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Número de Tarjeta</label>
+                            <input type="text" class="form-control bg-dark text-light border-secondary" id="cardNumber" maxlength="16" required placeholder="4532 XXXX XXXX XXXX">
+                        </div>
+                        <div class="row">
+                            <div class="col-6 mb-3">
+                                <label class="form-label">Vencimiento</label>
+                                <input type="text" class="form-control bg-dark text-light border-secondary" id="cardExpiry" placeholder="MM/AA" required>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label class="form-label">CVV</label>
+                                <input type="password" class="form-control bg-dark text-light border-secondary" id="cardCvv" maxlength="4" placeholder="123" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-neon w-100 py-2 fw-bold mt-2">✅ Confirmar y Pagar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
